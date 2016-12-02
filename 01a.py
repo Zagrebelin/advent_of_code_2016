@@ -21,7 +21,7 @@ def solve(data):
         'L': complex(0, 1),
         'R': complex(0, -1)
     }
-    direction = complex(1, 0)
+    direction = complex(0, 1)
     position = complex(0, 0)
 
     steps = re.findall('([LR])(\d+)', data)
