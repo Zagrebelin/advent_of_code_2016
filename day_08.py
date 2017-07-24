@@ -1,7 +1,9 @@
-import numpy as np
 import re
-import matplotlib.pyplot as plt
+import os
 
+import numpy as np
+import matplotlib.pyplot as plt
+import imageio
 
 def test():
     import doctest
@@ -67,15 +69,15 @@ def rotate_row(screen, y, by):
 
 
 def show(screen, step=-1):
-    plt.show(screen)
-    plt.imsave('x%s.png' % ('%03d'%step if step>=0 else ''), screen)
     for row in screen:
         print(''.join('X' if cell else '.' for cell in row))
     print('')
+    plt.imshow(screen)
+    plt.show()
 
 
 def main():
-    screen = np.zeros((8, 50), dtype=np.int)
+    screen = np.zeros((6, 50), dtype=np.int)
     for step, line in enumerate(open('data\\08a.txt')):
         command = line.split(' ')[0]
         if command == 'rect':
@@ -91,13 +93,11 @@ def main():
                 raise ValueError(line)
         else:
             raise ValueError(line)
-    ret = 0
     ret = np.count_nonzero(screen)
-    show(screen)
     print('The answer must be 115')
     print('The real answer is %s' % '', ret)
     assert ret == 115
-
+    show(screen)
 
 if __name__ == '__main__':
     if test():
