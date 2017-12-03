@@ -2,6 +2,8 @@ from functools import lru_cache
 
 
 def is_openspace(x: int, y: int, secret: int) -> bool:
+    if x<0 or y<0:
+        return False
     n = x * x + 3 * x + 2 * x * y + y + y * y + secret
     b = bin(n)
     ret = b.count('1') % 2
@@ -16,7 +18,8 @@ cells = {(1, 1): 0}
 secret = 1352
 offsets = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 st = 0
-while (31, 39) not in cells:            # Part A
+#while (31, 39) not in cells:            # Part A
+while st<1000:                           # Part B
     st += 1
     new = []
     for cell, distance in cells.items():
@@ -33,3 +36,4 @@ while (31, 39) not in cells:            # Part A
         cells[c] = distance + 1
 
 print(cells[(31,39)])                      # Part A, 90
+print(sum(1 for dist in cells.values() if dist<=50))    # part B, 135
